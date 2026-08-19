@@ -92,7 +92,7 @@
             border-bottom: 1px solid #333;
         }
 
-        /* Hero Section */
+/* Hero Section */
         header {
             height: 60vh;
             position: relative;
@@ -101,14 +101,15 @@
             background-color: #222222;
         }
 
-        /* The Background Video */
-        .hero-video {
+        /* The Background Image */
+        .hero-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover; 
+            object-position: center 65%; /* Adjust this percentage to change the crop! */
             z-index: 1;
         }
 
@@ -363,8 +364,8 @@
         </ul>
     </nav>
 
-    <header>
-        <video class="hero-video" src="videos/hero-film.mp4" autoplay muted loop playsinline></video>
+<header>
+        <img class="hero-image" src="images/hero-picture.jpg" alt="Yufeng Tian Portfolio">
     </header>
 
     <section id="introduction" class="intro-section">
