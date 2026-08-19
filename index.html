@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- DESIGN STYLES (CSS) --- */
+        
+        :root {
+            --bg-dark: #111111;
+            --bg-card: #1a1a1a;
+            --text-light: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent-color: #C4A052; /* Earth Yellow */
+
+            /* Custom colors for the Featured Works cards */
+            --card-1: #8CC63F; /* Lime Green */
+            --card-2: #008C95; /* Teal */
+            --card-3: #3CB371; /* Forest Green */
+            --card-4: #C4A052; /* Earth Yellow */
+            
+            /* This is the magic formula that perfectly constrains the width! */
+            --edge-padding: max(5%, calc((100% - 1100px) / 2));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem var(--edge-padding); 
+            background-color: rgba(17, 17, 17, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Dark Gray Divider Lines between sections */
+        header, section {
+            border-bottom: 1px solid #333;
+        }
+
+        /* Hero Section */
+        header {
+            height: 60vh;
+            position: relative;
+            overflow: hidden; 
+            margin-top: 85px;
+            background-color: #222222;
+        }
+
+        /* The Background Video */
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            z-index: 1;
+        }
+
+        /* Introduction Section */
+        .intro-section {
+            padding: 3rem var(--edge-padding); 
+            background-color: var(--bg-dark);
+            text-align: left;
+        }
+
+        .intro-text-container {
+            width: 100%;
+        }
+
+        .intro-text-container h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .intro-text-container p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        /* About Section (Digital Avatar) */
+        .about-section {
+            padding: 4rem var(--edge-padding);
+        }
+
+        .about-card {
+            background-color: var(--bg-card);
+            padding: 0; 
+            border-radius: 4px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0; 
+            align-items: stretch;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .about-card:hover {
+            background-color: var(--accent-color);
+        }
+
+        .about-text {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+            transition: color 0.4s ease;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            transition: color 0.4s ease;
+        }
+
+        .about-card:hover .about-text h2,
+        .about-card:hover .about-text p {
+            color: var(--bg-dark);
+        }
+
+        /* Updated About Video Section to handle Images */
+        .about-video {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .about-video a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .about-video img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+        
+        .about-video a:hover img {
+            opacity: 0.9;
+        }
+
+        /* Portfolio Grid Sections */
+        .portfolio-section {
+            padding: 6rem var(--edge-padding);
+        }
+
+        .portfolio-section h2 {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: left;
+            color: var(--accent-color);
+        }
+
+        /* Original 3-Column Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* 4-Column Layout for Posters */
+        .grid-container-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        /* The Cards */
+        .grid-item {
+            background-color: var(--bg-card);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.4s ease; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none; 
+            cursor: pointer;
+        }
+
+        /* Specific Hover Colors */
+        .item-1 { --hover-bg: var(--card-1); border-bottom: 3px solid var(--card-1); }
+        .item-2 { --hover-bg: var(--card-2); border-bottom: 3px solid var(--card-2); }
+        .item-3 { --hover-bg: var(--card-3); border-bottom: 3px solid var(--card-3); }
+        .item-4 { --hover-bg: var(--card-4); border-bottom: 3px solid var(--card-4); }
+
+        .grid-item-content {
+            padding: 1.5rem; 
+        }
+
+        .grid-item-content h3 {
+            font-size: 1.6rem; 
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            transition: color 0.4s ease;
+        }
+
+        .grid-item-content p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            transition: color 0.4s ease;
+        }
+
+        /* Media styling for 16:9 Video Feature Pictures */
+        .grid-item img.video-thumbnail {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        /* Media styling for Vertical Posters */
+        .grid-item img.poster-img {
+            width: 100%;
+            height: 400px; 
+            object-fit: cover;
+            object-position: top; 
+        }
+
+        /* THE HOVER MAGIC FOR CARDS */
+        .grid-item:hover {
+            transform: translateY(-10px);
+            background-color: var(--hover-bg); 
+        }
+
+        .grid-item:hover .grid-item-content h3,
+        .grid-item:hover .grid-item-content p {
+            color: var(--bg-dark);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem var(--edge-padding); 
+            background-color: #000;
+        }
+
+        /* Footer Links Styling */
+        .footer-links {
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .grid-container-4 {
+                grid-template-columns: repeat(2, 1fr); 
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-card {
+                grid-template-columns: 1fr;
+            }
+            .about-text {
+                padding: 2rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .grid-container-4 {
+                grid-template-columns: 1fr; 
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">Yufeng's Video Portfolio</a>
+        <ul class="nav-links">
+            <li><a href="#introduction">About</a></li>
+            <li><a href="#portfolio">Exhibitions</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <video class="hero-video" src="videos/hero-film.mp4" autoplay muted loop playsinline></video>
+    </header>
+
+    <section id="introduction" class="intro-section">
+        <div class="intro-text-container">
+            <h2>About Me</h2>
+            <p>I am currently a PhD candidate in Communication at the University at Albany (SUNY). Works collected here serve to demonstrate my professional capabilities in both scientific research and broadcast production.</p>
+            <p>As a communication scientist, I use computational modeling and EEG to explain how emotion, cognition, and learning interact under various media contexts. As an experienced TV & commercial video producer with 10+ years on the job, I am experienced in planning, multi-camera storytelling, and post-production workflows. This dual expertise informs both my academic and teaching practices.</p>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="about-card">
+            <div class="about-text">
+                <h2>Digital Avatar</h2>
+                <p>This video features a digital avatar created with HeyGen, an AI video generation platform. The avatar is generated from my personal photo, and the voice is an AI-generated synthetic voice — not cloned from my own. While the image and voice are AI-produced, the content and script are entirely my own.</p>
+            </div>
+            <div class="about-video">
+                <a href="https://www.youtube.com/watch?v=FaIwsAMnBiU" target="_blank">
+                    <img src="images/potfolio.png" alt="Digital Avatar Thumbnail">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio-section">
+        <h2>AI-Powered Documentaries</h2>
+   
+        <div class="grid-container">
+            <a href="https://www.youtube.com/watch?v=rROpT2tNAb4&t=1s" target="_blank" class="grid-item item-1">
+                <div class="grid-item-content">
+                    <h3>The Rational Illusion</h3>
+                    <p>Directed & Edited by Yufeng Tian; AI Script Generation：Gemini Pro 3.1; AI Voice Narration: HeyGen; Original Score & Sound Design: Adobe Stock Audio.</p>
+                </div>
+                <img src="images/docpic.png" alt="The Rational Illusion" class="video-thumbnail">
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=8I_424VHx4k&t=13s" target="_blank" class="grid-item item-2">
+                <div class="grid-item-content">
+                    <h3>Course Introduction</h3>
+                    <p>This video features a digital avatar created with HeyGen. The avatar is generated from my personal photo, and the voice is an AI-generated synthetic voice — not cloned from my own.</p>
+                </div>
+                <img src="images/picavatar.png" alt="Course Introduction" class="video-thumbnail">
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=FaIwsAMnBiU" target="_blank" class="grid-item item-3">
+                <div class="grid-item-content">
+                    <h3>Self Introduction</h3>
+                    <p>This video features a digital avatar created with HeyGen. The avatar is generated from my personal photo, and the voice is an AI-generated synthetic voice — not cloned from my own.</p>
+                </div>
+                <img src="images/potfolio.png" alt="Self Introduction" class="video-thumbnail">
+            </a>
+        </div>
+    </section>
+
+    <section id="campaigns" class="portfolio-section">
+        <h2>Campaign Teasers</h2>
+   
+        <div class="grid-container">
+            <a href="https://www.youtube.com/watch?v=FZDMD_jDfe0" target="_blank" class="grid-item item-1">
+                <div class="grid-item-content">
+                    <h3>World News Day</h3>
+                    <p>This teaser kicks off our participation in World News Day 2026, a global celebration of fact‑based journalism, now in its 8th year.</p>
+                </div>
+                <img src="images/worldpic.png" alt="World News Day" class="video-thumbnail">
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=R32-MR6_yVc" target="_blank" class="grid-item item-2">
+                <div class="grid-item-content">
+                    <h3>Local News Heroes</h3>
+                    <p>This is a social media campaign in response to the Local News Crisis. Students produced a series of five 30-second short videos in collaboration with local news outlets in Albany.</p>
+                </div>
+                <img src="images/localnewspic.png" alt="Local News Heroes" class="video-thumbnail">
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=Bz4V_8WQEI0" target="_blank" class="grid-item item-3">
+                <div class="grid-item-content">
+                    <h3>Dialogue 360</h3>
+                    <p>This is a student-led interview series where we sit down with professors, students, and educators to explore the big questions shaping university life today.</p>
+                </div>
+                <img src="images/360.png" alt="Dialogue 360" class="video-thumbnail">
+            </a>
+        </div>
+    </section>
+
+    <section id="commercials" class="portfolio-section">
+        <h2>Commercial Showcase</h2>
+   
+        <div class="grid-container">
+            <a href="https://www.youtube.com/watch?v=nTK6kmjRwjU" target="_blank" class="grid-item item-1">
+                <div class="grid-item-content">
+                    <h3>Deep Blue Center</h3>
+                    <p>U-shaped screen ultrawide video sample, Qingdao (for educational use only). Concept: Landmark Strategy — German planning DNA &times; Chinese context.</p>
+                </div>
+                <img src="images/deepblue.png" alt="Deep Blue Center" class="video-thumbnail">
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=y-5MAZLGVN4" target="_blank" class="grid-item item-2">
+                <div class="grid-item-content">
+                    <h3>Xiamen Cadaqués</h3>
+                    <p>Dali-Inspired Seaside Community, Xiamen (for educational use only). Concept: Merging surrealism (dream, time, sea motifs) with Spanish-style real estate marketing.</p>
+                </div>
+                <img src="images/kadapic.png" alt="Xiamen Cadaqués" class="video-thumbnail">
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=xNzlcEzqjlA" target="_blank" class="grid-item item-3">
+                <div class="grid-item-content">
+                    <h3>Lavie Town</h3>
+                    <p>Nostalgic Film Creative Cluster, Qingdao (for educational use only). Concept: A living archive of 20th-century cinema languages, where art deco façades meet digital content hubs.</p>
+                </div>
+                <img src="images/lavie.png" alt="Lavie Town" class="video-thumbnail">
+            </a>
+        </div>
+    </section>
+
+    <section id="posters-1" class="portfolio-section">
+        <h2>Poster Showcase I</h2>
+   
+        <div class="grid-container-4">
+            <a href="images/005.jpg" target="_blank" class="grid-item item-1">
+                <div class="grid-item-content">
+                    <h3>Death of Ji Kang</h3>
+                    <p>A Contemporary Dance Theater Performance (2008, Shenzhen OCT)</p>
+                </div>
+                <img src="images/005.jpg" alt="Death of Ji Kang" class="poster-img">
+            </a>
+
+            <a href="images/006.jpg" target="_blank" class="grid-item item-2">
+                <div class="grid-item-content">
+                    <h3>Prose China (1)</h3>
+                    <p>Shenzhen Book Fair Poster 1 (2009, Shenzhen)</p>
+                </div>
+                <img src="images/006.jpg" alt="Prose China (1)" class="poster-img">
+            </a>
+
+            <a href="images/007.jpg" target="_blank" class="grid-item item-3">
+                <div class="grid-item-content">
+                    <h3>Prose China (2)</h3>
+                    <p>Shenzhen Book Fair Poster 2 (2009, Shenzhen)</p>
+                </div>
+                <img src="images/007.jpg" alt="Prose China (2)" class="poster-img">
+            </a>
+
+            <a href="images/008.jpg" target="_blank" class="grid-item item-4">
+                <div class="grid-item-content">
+                    <h3>Pathway to Heart</h3>
+                    <p>Literary Works Poster 1</p>
+                </div>
+                <img src="images/008.jpg" alt="Pathway to Heart" class="poster-img">
+            </a>
+        </div>
+    </section>
+
+    <section id="posters-2" class="portfolio-section">
+        <h2>Poster Showcase II</h2>
+   
+        <div class="grid-container-4">
+            <a href="images/009.jpg" target="_blank" class="grid-item item-1">
+                <div class="grid-item-content">
+                    <h3>Liangzhou Life</h3>
+                    <p>Literary Works Poster 2</p>
+                </div>
+                <img src="images/009.jpg" alt="Liangzhou Life" class="poster-img">
+            </a>
+
+            <a href="images/010.jpg" target="_blank" class="grid-item item-2">
+                <div class="grid-item-content">
+                    <h3>A Dream</h3>
+                    <p>Literary Works Poster 3</p>
+                </div>
+                <img src="images/010.jpg" alt="A Dream" class="poster-img">
+            </a>
+
+            <a href="images/011.jpg" target="_blank" class="grid-item item-3">
+                <div class="grid-item-content">
+                    <h3>Vibe Hang (1)</h3>
+                    <p>Recruitment Poster for My Dissertation</p>
+                </div>
+                <img src="images/011.jpg" alt="Vibe Hang (1)" class="poster-img">
+            </a>
+
+            <a href="images/012.png" target="_blank" class="grid-item item-4">
+                <div class="grid-item-content">
+                    <h3>Vibe Hang (2)</h3>
+                    <p>Recruitment Poster for My Dissertation</p>
+                </div>
+                <img src="images/012.png" alt="Vibe Hang (2)" class="poster-img">
+            </a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>Contact me at: ytian4@albany.edu</p>
+        
+        <div class="footer-links">
+            <a href="https://yufeng415149610.wordpress.com" target="_blank">WordPress Blog</a>
+            <a href="https://www.youtube.com/@acom360-k8" target="_blank">YouTube Channel</a>
+        </div>
+        
+        <p style="color: var(--text-muted); font-size: 0.8rem;">&copy; 2026 Yufeng Tian. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
